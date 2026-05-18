@@ -32,7 +32,7 @@
     "series": {
       "description": "Reihe, zu der dieses Möbel gehört.",
       "type": "string",
-      "enum": ["massiq", "workaholiq", "keiliq"]
+      "enum": ["gehriq", "keiliq", "massiq", "workaholiq"]
     },
     "type": {
       "description": "Möbel-Typ als Kurzbezeichner (z. B. 'sideboard', 'werkbank').",

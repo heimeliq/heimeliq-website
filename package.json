@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "npm run sync-series-schema && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync": "tsx src/lib/furniture-sync.ts"
+    "sync": "tsx src/lib/furniture-sync.ts",
+    "sync-series-schema": "node scripts/sync-series-schema.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",
