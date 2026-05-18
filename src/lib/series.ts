@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,8 +12,11 @@ export interface SeriesData {
   story: string;
 }
 
-const SERIES_IDS = ['massiq', 'workaholiq', 'keiliq', 'gehriq'] as const;
-export type SeriesId = (typeof SERIES_IDS)[number];
+function listSeriesIds(): string[] {
+  return readdirSync(CONTENT_DIR)
+    .filter((entry: string) => statSync(join(CONTENT_DIR, entry)).isDirectory())
+    .sort();
+}
 
 function loadSeries(id: string): SeriesData {
   const json = JSON.parse(
@@ -25,10 +28,10 @@ function loadSeries(id: string): SeriesData {
 }
 
 export function getAllSeries(): SeriesData[] {
-  return SERIES_IDS.map(loadSeries);
+  return listSeriesIds().map(loadSeries);
 }
 
 export function getSeries(id: string): SeriesData | undefined {
-  if (!SERIES_IDS.includes(id as SeriesId)) return undefined;
+  if (!listSeriesIds().includes(id)) return undefined;
   return loadSeries(id);
 }
