@@ -12,7 +12,7 @@ export interface SeriesData {
   story: string;
 }
 
-const SERIES_IDS = ['massiq', 'workaholiq', 'keiliq'] as const;
+const SERIES_IDS = ['massiq', 'workaholiq', 'keiliq', 'gehriq'] as const;
 export type SeriesId = (typeof SERIES_IDS)[number];
 
 function loadSeries(id: string): SeriesData {
