@@ -1,0 +1,17 @@
+dist/
+node_modules/
+.furniture-cache/
+.DS_Store
+.env
+.env.*
+!.env.example
+CLAUDE.md
+
+# Astro
+.astro/
+
+# Furniture media (generated, not source-controlled)
+public/moebel/
+
+# Claude Code
+.claude/settings.local.json

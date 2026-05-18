@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://heimeliq.de/schema/heimeliq.schema.json",
+  "title": "heimeliQ Manifest",
+  "description": "Projektspezifische Erweiterungen, die das OKH-Manifest ergänzen.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "heimeliq-template-version",
+    "version",
+    "slug",
+    "series",
+    "type",
+    "status"
+  ],
+  "properties": {
+    "heimeliq-template-version": {
+      "description": "SemVer-Version der heimeliQ-Vorlage, auf der dieses Repo basiert.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "version": {
+      "description": "SemVer-Version dieses Möbels.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "slug": {
+      "description": "URL-Slug. Sollte zum Repo-Namen passen (ohne 'heimeliq-' Präfix).",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "series": {
+      "description": "Reihe, zu der dieses Möbel gehört.",
+      "type": "string",
+      "enum": ["massiq", "workaholiq", "keiliq"]
+    },
+    "type": {
+      "description": "Möbel-Typ als Kurzbezeichner (z. B. 'sideboard', 'werkbank').",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "status": {
+      "description": "Veröffentlichungsstatus.",
+      "type": "string",
+      "enum": ["draft", "published", "archived"]
+    },
+    "external_parts": {
+      "description": "Externe Drittteile (nicht open source).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["heimeliq-part-id", "name", "quantity"],
+        "properties": {
+          "heimeliq-part-id": {
+            "type": "string",
+            "pattern": "^E[0-9]{3}$"
+          },
+          "name": { "type": "string" },
+          "standard": { "type": "string" },
+          "material": { "type": "string" },
+          "dimensions": { "type": "string" },
+          "manufacturer": { "type": "string" },
+          "manufacturer_article_number": { "type": "string" },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "suppliers": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "wood_options": {
+      "description": "Holzarten, in denen das Möbel konstruktiv möglich ist.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["species"],
+        "properties": {
+          "species": { "type": "string" },
+          "origin": { "type": "string" },
+          "recommended": { "type": "boolean" }
+        }
+      }
+    },
+    "care": {
+      "type": "object",
+      "properties": {
+        "surface_treatment": { "type": "string" },
+        "recommended_products": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "sustainability": {
+      "type": "object",
+      "properties": {
+        "wood_source": { "type": "string" },
+        "co2_documented": { "type": "boolean" }
+      }
+    }
+  }
+}

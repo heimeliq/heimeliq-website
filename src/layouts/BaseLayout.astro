@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Massivmöbel aus regionalen Naturmaterialien – Open Source.' } = Astro.props;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} – heimeliQ</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="/" class="site-logo">heimeliQ</a>
+        <nav class="site-nav" aria-label="Hauptnavigation">
+          <a href="/katalog">Katalog</a>
+          <a href="/reihen/massiq">MassiQ</a>
+          <a href="/reihen/workaholiq">WorkaholiQ</a>
+          <a href="/reihen/keiliq">KeiliQ</a>
+          <a href="/ueber">Über uns</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          <a href="/impressum">Impressum</a> ·
+          <a href="/datenschutz">Datenschutz</a> ·
+          <a href="/kontakt">Kontakt</a>
+        </p>
+        <p>heimeliQ · Möbel unter <a href="https://ohwr.org/cern_ohl_s_v2.txt">CERN-OHL-S-2.0</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid #e5e5e5;
+    padding-block: 1rem;
+  }
+  .site-header .container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .site-logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .site-nav {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .site-nav a {
+    text-decoration: none;
+    color: #555;
+    font-size: 0.9rem;
+  }
+  .site-nav a:hover { color: #1a1a1a; }
+  .site-footer {
+    margin-top: 4rem;
+    border-top: 1px solid #e5e5e5;
+    padding-block: 2rem;
+    font-size: 0.85rem;
+    color: #777;
+  }
+  .site-footer a { color: inherit; }
+  .site-footer p + p { margin-top: 0.5rem; }
+</style>

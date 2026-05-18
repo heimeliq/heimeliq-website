@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Impressum">
+  <div class="container static-page">
+    <h1>Impressum</h1>
+    <p>Angaben gemäß § 5 TMG:</p>
+    <p>
+      FIXME: Name und Anschrift<br />
+      FIXME: Straße, PLZ Ort<br />
+      FIXME: Land
+    </p>
+    <p>
+      E-Mail: <a href="mailto:info@heimeliq.de">info@heimeliq.de</a><br />
+      FIXME: Telefon (optional)
+    </p>
+    <h2>Verantwortlich für den Inhalt</h2>
+    <p>FIXME: Name, Anschrift</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .static-page { max-width: 52rem; padding-block: 3rem; }
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: 1.25rem; letter-spacing: -0.03em; }
+  h2 { font-size: 1.2rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+  p { line-height: 1.7; margin-bottom: 1em; }
+</style>

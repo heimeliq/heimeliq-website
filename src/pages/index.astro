@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublishedFurniture } from '../lib/furniture-data.js';
+import { getAllSeries } from '../lib/series.js';
+
+const furniture = await getPublishedFurniture();
+const series = getAllSeries();
+const latestFurniture = [...furniture].slice(0, 3);
+---
+<BaseLayout title="Massivmöbel aus regionalen Naturmaterialien">
+  <section class="hero">
+    <div class="container">
+      <h1>Möbel, die bleiben.</h1>
+      <p class="hero-lead">
+        heimeliQ baut Massivmöbel aus regionalen Naturmaterialien –
+        Massivholz, Stahl, Sperrholz. Keine Spanplatten. Keine synthetischen Leime.
+        Jedes Stück vollständig Open Source unter CERN-OHL-S-2.0.
+      </p>
+      <a href="/katalog" class="btn">Zum Katalog</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Reihen</h2>
+      <div class="series-grid">
+        {series.map(s => (
+          <a href={`/reihen/${s.id}`} class="series-card">
+            <h3>{s.name}</h3>
+            <p>{s.tagline}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {latestFurniture.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2>Aktuelle Möbel</h2>
+        <div class="furniture-grid">
+          {latestFurniture.map(item => (
+            <a href={`/moebel/${item.slug}`} class="furniture-card">
+              <div class="furniture-card-img">
+                <img
+                  src={`/moebel/${item.slug}/media/hero.jpg`}
+                  alt={item.name}
+                  loading="lazy"
+                />
+              </div>
+              <div class="furniture-card-body">
+                <span class="series-badge">{item.series}</span>
+                <h3>{item.name}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: 5rem 4rem;
+    background: #f8f6f3;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+  .hero-lead {
+    max-width: 42rem;
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #1a1a1a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  .btn:hover { background: #333; }
+  .section { padding-block: 3rem; }
+  .section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  /* Series grid */
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .series-card {
+    padding: 1.5rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s;
+  }
+  .series-card:hover { border-color: #aaa; }
+  .series-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .series-card p { font-size: 0.9rem; color: #666; }
+
+  /* Furniture grid */
+  .furniture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .furniture-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.15s;
+  }
+  .furniture-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .furniture-card-img { aspect-ratio: 4/3; overflow: hidden; background: #f0ede8; }
+  .furniture-card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .furniture-card-body { padding: 1rem; }
+  .series-badge {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .furniture-card-body h3 { font-size: 1rem; font-weight: 600; }
+</style>
